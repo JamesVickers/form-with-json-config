@@ -2,26 +2,48 @@ import React, { ChangeEventHandler, useState } from "react";
 import Paper from "@mui/material/Paper";
 import { Button, Grid, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import { MyObject } from "./types";
-import { setDeep } from "./utils";
+import { InputItem } from "./types";
+// import { setDeep } from "./utils";
 
 type StaticFormProps = {
-  object: MyObject;
+  data: InputItem[];
 };
 
-const StaticForm = ({ object }: StaticFormProps): JSX.Element => {
-  const [myObject, setMyObject] = useState<MyObject>(object);
-  const [savedObject, setSavedObject] = useState<MyObject>();
+const StaticForm = ({ data }: StaticFormProps): JSX.Element => {
+  console.log('StaticForm > data: ', data)
+  const [localData, setLocalData] = useState<InputItem[]>(data);
+  const [savedObject, setSavedObject] = useState<InputItem[]>();
 
-  const onChange =
-    (
-      path: string,
-    ): ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> =>
-    (event) =>
-      setMyObject(setDeep(myObject, path, event.target.value));
+  const onChange = (
+    path: string,
+    index: number
+  ): ChangeEventHandler<HTMLInputElement> => (event) => {
+    const newValue = event.target.value;
+
+    setLocalData((prevData) => {
+      const updatedData = prevData.map((item, i) => {
+        if (i === index) {
+          const updatedItem = {
+            ...item,
+            [path]: newValue,
+          };
+          return updatedItem;
+        }
+        return item;
+      });
+      return updatedData;
+    });
+  };
+
+  // const onChange =
+  // (
+  //   path: string,
+  // ): ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> =>
+  // (event) =>
+  //   setLocalData(setDeep(localData, path, event.target.value));
 
   const onSaveChanges = () => {
-    setSavedObject(myObject);
+    setSavedObject(localData);
   };
 
   return (
@@ -29,12 +51,25 @@ const StaticForm = ({ object }: StaticFormProps): JSX.Element => {
       <Grid item xs={12}>
         <Paper variant="elevation" style={{ margin: "10px" }}>
           <Typography variant="h4">Vehicle details</Typography>
-          <Grid container alignItems="flex-start" spacing={2} padding={5}>
+          {data.map((property, index) => (
+            <div key={index}>
+              <label htmlFor={property.label}>{property.label}</label>
+              <input
+                type={property.type}
+                id={property.label}
+                name={property.label}
+                value={('defaultValue' in property) ? property.defaultValue ?? '' : ''}
+                onChange={onChange(property.path, index)}
+              />
+            </div>
+          )
+          )}
+          {/* <Grid container alignItems="flex-start" spacing={2} padding={5}>
             <Grid item xs={12}>
               <TextField
                 style={{ width: "100%" }}
                 label="Driver Name"
-                value={myObject.driver?.name || ""}
+                value={localData.driver?.name || ""}
                 onChange={onChange("driver.name")}
               />
             </Grid>
@@ -42,11 +77,11 @@ const StaticForm = ({ object }: StaticFormProps): JSX.Element => {
               <TextField
                 style={{ width: "100%" }}
                 label="Vehicle Regplate"
-                value={myObject.vehicle?.regplate || ""}
+                value={localData.vehicle?.regplate || ""}
                 onChange={onChange("vehicle.regplate")}
               />
             </Grid>
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <div style={{ margin: "10px", padding: "10px" }}>
               <Button variant="outlined" onClick={onSaveChanges}>
