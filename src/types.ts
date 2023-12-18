@@ -1,14 +1,14 @@
 type CurrencyInputValue = 'EUR' | 'USD' | 'GBP';
 type EnumInputValue = 'yes' | 'no' | 'maybe';
 
-interface TextInput {
+export interface TextInput {
     type: 'textInput';
     label: string;
     path: string;
     defaultValue?: string;
 }
 
-interface EnumInput {
+export interface EnumInput {
     type: 'enumInput';
     label: string;
     path: string;
@@ -16,7 +16,7 @@ interface EnumInput {
     defaultValue?: string;
 }
 
-interface IntegerInput {
+export interface IntegerInput {
     type: 'integerInput';
     label: string;
     path: string;
@@ -25,7 +25,7 @@ interface IntegerInput {
     defaultValue?: number;
 }
 
-interface CurrencyInput {
+export interface CurrencyInput {
     type: 'currencyInput';
     label: string;
     path: string;
