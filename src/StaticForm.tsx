@@ -3,7 +3,7 @@ import Paper from "@mui/material/Paper";
 import { Button, Grid, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { InputItem, TextInput, EnumInput, IntegerInput } from "./types";
-// import { setDeep } from "./utils";
+import { setDeepArray } from "./utils";
 import { getData } from "./utils";
 
 const StaticForm = (): JSX.Element => {
@@ -22,16 +22,7 @@ const StaticForm = (): JSX.Element => {
     const newValue = event.target.value;
 
     setLocalData((prevData) => {
-      const updatedData = prevData.map((item, i) => {
-        if (i === index) {
-          const updatedItem = {
-            ...item,
-            [path]: newValue,
-          };
-          return updatedItem;
-        }
-        return item;
-      });
+      const updatedData = setDeepArray(prevData, index, path, newValue);
       return updatedData;
     });
   };
