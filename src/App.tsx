@@ -7,7 +7,7 @@ export default function App() {
   return (
     <div className="App" style={{ backgroundColor: "grey" }}>
       <h1>Static Renderer</h1>
-      <StaticForm object={getData()} />
+      <StaticForm data={getData()} />
     </div>
   );
 }
