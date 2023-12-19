@@ -10,16 +10,17 @@ export const setDeepArray = (
 ): InputItem[] => {
   const updatedData = data.map((item, i) => {
     if (i === index) {
-      const updatedItem = {
+      return {
         ...item,
-        [path]: value,
+        [item.path]: value,
       };
-      return updatedItem;
     }
     return item;
   });
+
   return updatedData;
 };
+
 
 export const getData = () => {
   return objectJson as InputItem[];
