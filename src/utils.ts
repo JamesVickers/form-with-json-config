@@ -1,4 +1,3 @@
-import { assocPath } from "ramda";
 import { InputItem } from "./types";
 import objectJson from "./configurationToImplement.json";
 
