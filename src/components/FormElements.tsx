@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler } from "react";
-import { TextField } from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
 import { InputItem } from "../types";
 import { setDeepArray } from "../utils";
 
@@ -65,9 +65,9 @@ const FormElements = ({
                         onChange={onChange(item.path, index)}
                     >
                         {item.values?.map((value) => (
-                            <option key={value} value={value}>
+                            <MenuItem key={value} value={value}>
                                 {value}
-                            </option>
+                            </MenuItem>
                         ))}
                     </TextField>
                 );
@@ -99,9 +99,9 @@ const FormElements = ({
                         onChange={onChange(item.path, index)}
                     >
                         {item.currencies?.map((currency: string) => (
-                            <option key={currency} value={currency}>
+                            <MenuItem key={currency} value={currency}>
                                 {currency}
-                            </option>
+                            </MenuItem>
                         ))}
                     </TextField>
                 );
