@@ -32,12 +32,16 @@ const FormElements = ({
     };
 
     const getValue = (item: InputItem) => {
-        const newValue = isValidProperty(item, item.path) && item[item.path as keyof InputItem] !== undefined
-            ? item[item.path as keyof InputItem] as string
-            : 'defaultValue' in item
-                ? item.defaultValue ?? ''
-                : '';
-        return newValue;
+        if (
+            isValidProperty(item, item.path) &&
+            item[item.path as keyof InputItem] !== undefined
+        ) {
+            return item[item.path as keyof InputItem] as string
+        } else if ('defaultValue' in item) {
+            return item.defaultValue ?? '';
+        } else {
+            return '';
+        }
     };
 
     const formElements = (item: InputItem, index: number) => {
