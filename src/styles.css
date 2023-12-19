@@ -2,3 +2,14 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+.MuiPaper-root > div {
+  /* TODO: set up global styles and swap fixed units for rem */
+  margin: 20px; 
+}
+
+.MuiFormControl-root {
+  width: 100%;
+  /* TODO: set up global styles and swap fixed units for rem */
+  max-width: 400px;
+}
